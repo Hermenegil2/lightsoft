@@ -1,0 +1,81 @@
+@CHARSET "ISO-8859-1";
+
+
+
+.form-control{
+
+margin-bottom: 5px;
+
+}
+
+/* .scroll{ */
+/* 	overflow: scroll; */
+/* max-height: 150px; */
+/* } */
+
+
+.table{
+	font-size: 12px;
+	
+}
+
+.seleccionado{
+background-color: gray;
+}
+
+.negrita{
+
+font-weight: bold;
+color: white;
+}
+
+hr{
+	padding-bottom: 0px;
+}
+
+.col-md-12{
+
+
+padding-right: 40px;
+padding-left: 40px;
+}
+
+.col-xs-2{
+	width: 250px;
+}
+
+#saldo{
+	
+	background-color: #3eb36c;
+	color: white;
+	font-weight: bold;
+	
+}
+tbody {
+	display: block;
+	overflow: scroll;
+	max-height: 400px;
+	text-align: left;
+	
+}
+td{
+	width: 150px;
+
+	
+}
+th{
+	width: 150px;
+
+}
+
+
+tr {
+	display: block;
+}
+
+div.col-md-12 td{
+	width: 182px;
+}
+div.col-md-12 th{
+	width: 182px;
+}

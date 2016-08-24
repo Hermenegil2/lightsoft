@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="ui.bootstrap.demo">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="/lightsoft/resources/js/jquery-latest.js"></script>
+<link rel="stylesheet" href="/lightsoft/resources/css/bootstrap-3.3.6-dist/css/bootstrap.css">
+<script type="text/javascript" src="/lightsoft/resources/css/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+<script type="text/javascript" src="/lightsoft/resources/js/angular/angular.js"></script>
+
+<script type="text/javascript" src="/lightsoft/resources/css/ui-bootstrap-tpls-2.0.1.js"></script>
+
+<script type="text/javascript" src="/lightsoft/resources/js/angular/angular-route.js"></script>
+
+
+<script type="text/javascript" src="/lightsoft/resources/js/angular/angular-animate.js"></script>
+
+
+
+<script type="text/javascript">
+
+angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
+
+	  $scope.items = ['item1', 'item2', 'item3'];
+
+	  $scope.animationsEnabled = true;
+
+	  $scope.open = function (size) {
+
+	    var modalInstance = $uibModal.open({
+	      animation: $scope.animationsEnabled,
+	      templateUrl: 'myModalContent.html',
+	      controller: 'ModalInstanceCtrl',
+	      size: size,
+	      resolve: {
+	        items: function () {
+	          return $scope.items;
+	        }
+	      }
+	    });
+
+	    modalInstance.result.then(function (selectedItem) {
+	      $scope.selected = selectedItem;
+	    }, function () {
+	      $log.info('Modal dismissed at: ' + new Date());
+	    });
+	  };
+
+	  $scope.toggleAnimation = function () {
+	    $scope.animationsEnabled = !$scope.animationsEnabled;
+	  };
+
+	});
+
+	// Please note that $uibModalInstance represents a modal window (instance) dependency.
+	// It is not the same as the $uibModal service used above.
+
+	angular.module('ui.bootstrap.demo').controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+	  $scope.items = items;
+	  $scope.selected = {
+	    item: $scope.items[0]
+	  };
+
+	  $scope.ok = function () {
+	    $uibModalInstance.close($scope.selected.item);
+	  };
+
+	  $scope.cancel = function () {
+	    $uibModalInstance.dismiss('cancel');
+	  };
+	});
+
+
+
+
+
+</script>
+
+
+
+
+</head>
+<body>
+
+<div >
+<div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+    <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
+    <button type="button" class="btn btn-default" ng-click="open('lg')">Large modal</button>
+    <button type="button" class="btn btn-default" ng-click="open('sm')">Small modal</button>
+    <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+</div>
+</div>
+
+</body>
+</html>

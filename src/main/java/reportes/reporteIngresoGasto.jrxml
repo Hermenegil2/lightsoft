@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteIngresoGasto" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee4d5054-5510-4101-84ca-f288ad681156">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha_inicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha_fin" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     ingresogasto."id" AS ingresogasto_id,
+     ingresogasto."fechaingreso" AS ingresogasto_fechaingreso,
+     ingresogasto."monto" AS ingresogasto_monto,
+     ingresogasto."descripcionig_id" AS ingresogasto_descripcionig_id,
+     ingresogasto."usuario_login" AS ingresogasto_usuario_login,
+     usuario."login" AS usuario_login,
+     usuario."name" AS usuario_name,
+     usuario."password" AS usuario_password,
+     descripcionig."id" AS descripcionig_id,
+     descripcionig."descripcion" AS descripcionig_descripcion,
+     descripcionig."observacion" AS descripcionig_observacion,
+     descripcionig."tipo" AS descripcionig_tipo
+FROM
+     "public"."usuario" usuario INNER JOIN "public"."ingresogasto" ingresogasto ON usuario."login" = ingresogasto."usuario_login"
+     INNER JOIN "public"."descripcionig" descripcionig ON ingresogasto."descripcionig_id" = descripcionig."id"
+
+ WHERE ingresogasto."fechaingreso" BETWEEN $P{fecha_inicio} and $P{fecha_fin}]]>
+	</queryString>
+	<field name="ingresogasto_id" class="java.lang.Integer"/>
+	<field name="ingresogasto_fechaingreso" class="java.sql.Timestamp"/>
+	<field name="ingresogasto_monto" class="java.lang.Double"/>
+	<field name="ingresogasto_descripcionig_id" class="java.lang.Integer"/>
+	<field name="ingresogasto_usuario_login" class="java.lang.String"/>
+	<field name="usuario_login" class="java.lang.String"/>
+	<field name="usuario_name" class="java.lang.String"/>
+	<field name="usuario_password" class="java.lang.String"/>
+	<field name="descripcionig_id" class="java.lang.Integer"/>
+	<field name="descripcionig_descripcion" class="java.lang.String"/>
+	<field name="descripcionig_observacion" class="java.lang.String"/>
+	<field name="descripcionig_tipo" class="java.lang.String"/>
+	<variable name="total_debe" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{descripcionig_tipo}.equals("positivo") ? $F{ingresogasto_monto}:0]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="total_haber" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{descripcionig_tipo}.equals("positivo") ? 0:$F{ingresogasto_monto}]]></variableExpression>
+	</variable>
+	<variable name="ingresogasto_monto_SUM" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{ingresogasto_monto}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="33">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="53" backcolor="#006699" uuid="1a422937-12a0-4747-92a6-27443dc6ce0c"/>
+				<staticText>
+					<reportElement x="20" y="0" width="364" height="40" forecolor="#FFFFFF" uuid="766e1662-7c50-4fe5-838c-8519ca97eb2a"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Listado de Ingresos y Gastos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="20" width="180" height="20" forecolor="#FFFFFF" uuid="c68d8e7d-344e-45f4-9893-a1ccf5592d18"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[LightSoft]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24">
+			<staticText>
+				<reportElement mode="Opaque" x="357" y="1" width="67" height="19" forecolor="#000000" backcolor="#FFFFFF" uuid="c2e1ecda-8ad5-4fcb-9107-30b552c15aee"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="424" y="0" width="149" height="21" uuid="9f7e308c-df98-4151-a97b-31c2429f25f9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario_login}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="189" y="4" width="52" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="e6647792-d7a3-4341-a921-4fc63c3a9e38"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="252" y="1" width="105" height="19" uuid="356b8db2-4cdf-4c0c-be48-6b324991f484"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario_name}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Transparent" x="-31" y="0" width="606" height="21" uuid="17df1dc9-98ce-46c6-b797-a0105dff8b1c"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="38" y="4" width="74" height="16" uuid="df7bc3d5-689c-40af-82bb-06774350fb50"/>
+				<textFieldExpression><![CDATA[$P{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-20" y="4" width="48" height="20" uuid="16f434fe-03a1-4244-b4dc-e208884e92d0"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rango:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="4" width="12" height="16" uuid="eff7c2e6-d99a-430e-b67a-8b140364004d"/>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="4" width="77" height="16" uuid="7f2bd71c-0694-46b9-827e-83a97050e98d"/>
+				<textFieldExpression><![CDATA[$P{fecha_fin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="206ebe45-eb03-4c6a-b668-6158fc80ccd4"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="57" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="7498f300-9537-4cdf-854a-35826aa1246f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="241" y="0" width="123" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="c9eeb540-4925-4db8-b1f0-a94f61890fea"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="462" y="1" width="93" height="19" forecolor="#006699" backcolor="#FFFFFF" uuid="30c10e4c-c8d7-46b3-8fba-5111ac1cd020"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Haber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="57" y="0" width="184" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="0d26af8d-af18-4600-a869-c096af42b376"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="364" y="0" width="98" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="7b753200-03f5-4cab-8cc9-67c350f59960"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debe]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="ced7e1f5-9f35-47ce-8cb7-cff389f0829f"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="57" height="20" uuid="1b9cbe5d-f428-44f9-9877-1e9f96e35daf"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ingresogasto_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="57" y="0" width="184" height="20" uuid="5f55bfe7-06b7-46d1-80f6-9e719f3cac6e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionig_descripcion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00">
+				<reportElement key="2" x="462" y="0" width="93" height="20" uuid="b9c5f907-607e-4ab2-9df6-5aba54e333bd"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionig_tipo}.equals("positivo") ?  0:$F{ingresogasto_monto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="241" y="0" width="123" height="20" uuid="2c83e5b5-bb9c-4d06-8fff-49c809dc8813"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ingresogasto_fechaingreso}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00">
+				<reportElement key="1" x="364" y="0" width="93" height="20" uuid="ca46c70f-4638-4f2b-b8a1-75398d35b3af"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcionig_tipo}.equals("positivo") ? $F{ingresogasto_monto}:0]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="25">
+			<staticText>
+				<reportElement x="241" y="0" width="123" height="25" forecolor="#006699" uuid="f9b49058-f43f-407c-bc70-8efe2c7b0c49"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="20" forecolor="#006699" uuid="3ad86d0a-4058-4564-805e-40b55e62746a"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="364" y="5" width="93" height="20" uuid="a672f736-ae79-4700-bfeb-7d4fa3c322ae"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_debe}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="457" y="5" width="98" height="20" uuid="291dfb14-bd41-4039-b6d3-3d9d1d534011"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_haber}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement mode="Opaque" x="100" y="5" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="ea978dda-605b-4e74-bae0-59dab1748c33"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_debe}-$V{total_haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="4b6024f9-ce92-4635-bc1d-99bcd201cea5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="db2408d5-c6a4-4763-ba21-8c27d7734a88"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="e972bbf6-9409-4dec-a05b-1f734cd10aa2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
