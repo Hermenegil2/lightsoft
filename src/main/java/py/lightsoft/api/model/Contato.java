@@ -15,6 +15,7 @@ public class Contato {
 	private Integer id;
 	private String nome;
 	private String telefone;
+	
 	@ManyToOne
 	private Operadora operadora;
 	
@@ -74,12 +75,7 @@ public class Contato {
 		this.serial = serial;
 	}
 
-	@Override
-	public String toString() {
-		return "Contato [id=" + id + ", nome=" + nome + ", telefone=" + telefone + ", operadora=" + operadora
-				+ ", data=" + data + ", serial=" + serial + "]";
-	}
-
+	
 	
 
 	

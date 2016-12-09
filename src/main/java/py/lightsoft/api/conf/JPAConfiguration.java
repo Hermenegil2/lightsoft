@@ -24,7 +24,7 @@ public class JPAConfiguration {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
 	LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 	em.setDataSource(dataSource);
-	em.setPackagesToScan(new String[] {"py.lightsoft.api.model","py.lightsoft.api.model2"});
+	em.setPackagesToScan(new String[] {"py.lightsoft.api.model","py.lightsoft.api.modeldos"});
 	JpaVendorAdapter vendorAdapter =new HibernateJpaVendorAdapter();
 	em.setJpaVendorAdapter(vendorAdapter);
 	em.setJpaProperties(additionalProperties());

@@ -43,7 +43,11 @@
 					<li ><a  href="/lightsoft/descripcionigs/form">Registro de Tipo de Gasto<span class="icon-radio-checked"></span></a></li>
 					<li><a href="/lightsoft/productos/form">Registrar Producto<span class="icon-radio-checked"></span></a></li>
 					<li><a href="/lightsoft/usuarios/form">Registrar Usuario<span class="icon-radio-checked"></span></a></li>
+					<li><a href="/lightsoft/resources/agenda/index.html">Registrar Contacto<span class="icon-radio-checked"></span></a></li>
 					</ul>
+					
+					
+					
 				</li>
 				<li class="submenu">
 				<a href="#"><span class="icon-stack"></span>Servicios<span class=""></span></a>

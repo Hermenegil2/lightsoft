@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Operadora {
@@ -18,7 +19,7 @@ public class Operadora {
 	private Double preco;
 	private String categoria;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="operadora")
 	private List<Contato> contatos;
 	
@@ -66,11 +67,7 @@ public class Operadora {
 		this.contatos = contatos;
 	}
 
-	@Override
-	public String toString() {
-		return "Operadora [codigo=" + codigo + ", nome=" + nome + ", preco=" + preco + ", categoria=" + categoria
-				+ ", contatos=" + contatos + "]";
-	}
+	
 
 	
 

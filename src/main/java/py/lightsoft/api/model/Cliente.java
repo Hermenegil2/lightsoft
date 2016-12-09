@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import py.lightsoft.api.modeldos.General;
+
 @Entity
-@XmlRootElement
-public class Cliente{
+
+public class Cliente extends Nombre{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	private String nombre;
+	
+	
 	@NotBlank
 	private String celular;
 	private String direccion;
@@ -26,18 +26,7 @@ public class Cliente{
 //	public Cliente() {
 //		super();
 //	}
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	
 	public String getCelular() {
 		return celular;
 	}
@@ -62,12 +51,7 @@ public class Cliente{
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", celular=" + celular + ", direccion=" + direccion
-				+ ", email=" + email + ", observacion=" + observacion + "]";
-	}
-	
+
 	
 	
 	
