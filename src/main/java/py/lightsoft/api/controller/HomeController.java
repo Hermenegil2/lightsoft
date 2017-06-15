@@ -18,6 +18,22 @@ public class HomeController {
 				return modelAndView;	
 	}
 	
+	@RequestMapping("/home")
+	public ModelAndView index2(){
+		
+		System.out.println("Ingrese en el inicio");
+		ModelAndView modelAndView =new ModelAndView("/inicio/index");
+				return modelAndView;	
+	}
+	
+	@RequestMapping("/index")
+	public ModelAndView index3(){
+		
+		System.out.println("Ingrese en el inicio");
+		ModelAndView modelAndView =new ModelAndView("/inicio/index");
+				return modelAndView;	
+	}
+	
 	@RequestMapping("/login")
 	public ModelAndView login(){
 ModelAndView modelAndView =new ModelAndView("auth/login");

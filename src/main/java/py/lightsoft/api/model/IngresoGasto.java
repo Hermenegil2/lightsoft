@@ -18,6 +18,10 @@ public class IngresoGasto {
 	private Integer id;
 	private Double monto;
 	private Date fechaIngreso;
+	
+	private String observacion;
+	
+	
 	@ManyToOne
 //	@JsonManagedReference
 	private DescripcionIG descripcionIG;
@@ -77,6 +81,16 @@ public class IngresoGasto {
 		this.usuario = usuario;
 	}
 
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
+	
+	
 //	@Override
 //	public String toString() {
 //		return "IngresoGasto [id=" + id + ", monto=" + monto + ", fechaIngreso=" + fechaIngreso + ", descripcionIG="

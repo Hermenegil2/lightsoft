@@ -94,7 +94,8 @@
  <input class="form-control" type="date" ng-model="ingreso.fechaIngreso" placeholder="Fecha Evento">
 
  <input class="form-control" type="text" ng-model="ingreso.descripcionIG.descripcion" placeholder="Seleccione un tipo de Gasto " disabled="disabled">
- <input class="form-control" type="text" ng-model="ingreso.monto" ng-model="ingreso.monto" placeholder="Monto">
+ <input class="form-control" type="text" ng-model="ingreso.monto"  placeholder="Monto" id="monto">
+ <input class="form-control" type="text" ng-model="ingreso.observacion"  placeholder="Observación" id="observacion">
 
 
 
@@ -172,6 +173,7 @@
 <th>Fecha Registro</th>
 <th>Debe</th>
 <th>Haber</th>
+<th>Observación</th>
 <th>Editar</th>
 
 
@@ -190,6 +192,7 @@
 <td >{{ingreso.debe |number}}</td>
 <td>{{ingreso.haber |number}}</td>
 
+<td>{{ingreso.observacion}}</td>
 
 <td><a ng-click="editarIngreso(ingreso)" class="icon-pencil"></a></td>
 

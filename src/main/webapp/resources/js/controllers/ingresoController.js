@@ -106,6 +106,8 @@ $scope.editarIngreso=function(ingreso){
 	$scope.ingreso=ingreso;
 	$scope.ingreso.fechaIngreso=new Date(ingreso.fechaIngreso);
 	
+	requesFocus('monto');
+	
 };
 
 $scope.eliminarIngreso=(function(ingresos){
@@ -166,6 +168,11 @@ $scope.registrar=function(entidad){
 $scope.cancel = function (){
 $scope.showModal=false;
 };
+
+
+var requesFocus=	function foco(idElemento){
+	 document.getElementById(idElemento).focus();
+	}
 			                
      $scope.showModal = false;
 
