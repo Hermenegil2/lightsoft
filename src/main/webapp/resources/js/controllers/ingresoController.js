@@ -169,6 +169,11 @@ $scope.cancel = function (){
 $scope.showModal=false;
 };
 
+$scope.ordenarPor = function (campo) {
+	$scope.criterioDeOrdenacion = campo;
+	$scope.direccionDeOrdenacion = !$scope.direccionDeOrdenacion;
+};
+
 
 var requesFocus=	function foco(idElemento){
 	 document.getElementById(idElemento).focus();

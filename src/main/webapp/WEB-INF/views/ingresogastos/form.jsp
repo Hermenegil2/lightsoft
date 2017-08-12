@@ -112,6 +112,10 @@
 
 
 <div class="col-md-7">
+<label for="search">Busqueda de Tipo de Gasto</label> 
+					<input id="search" type="search" required
+						ng-model="criterioDeBuscadescripcionIG"> 
+
 <h5 align="center">Seleccione el tipo de Gasto</h5>
 
 <div class="scroll">
@@ -129,7 +133,7 @@
 </thead>
 
 <tbody >
-<tr ng-repeat="descripcionIG in descripcions">
+<tr ng-repeat="descripcionIG in descripcions | filter:criterioDeBuscadescripcionIG">
 <td>{{descripcionIG.id}}</td>
 <td>{{descripcionIG.descripcion}}</td>
 <td>{{descripcionIG.tipo}}</td>
@@ -159,6 +163,11 @@
 
 <h5>Historial de Ingresos y Gastos</h5>
 
+					<label for="search">Busqueda</label> 
+					<input id="search" type="search" required
+						ng-model="criterioDeBusca"> 
+				
+
 <hr>
 
 
@@ -184,7 +193,7 @@
 
 
 <tbody >
-<tr ng-class="{'seleccionado negrita':ingreso.seleccionado}" ng-repeat="ingreso in ingresos">
+<tr ng-class="{'seleccionado negrita':ingreso.seleccionado}" ng-repeat="ingreso in ingresos | filter:criterioDeBusca | orderBy:criterioDeOrdenacion:direccionDeOrdenacion">
 <td><input type="checkbox" ng-model="ingreso.seleccionado"></input><span ng-class="{'icon-bin':ingreso.seleccionado}"></span></td>
 <td>{{ingreso.id}}</td>
 <td>{{ingreso.descripcionIG.descripcion}}</td>
